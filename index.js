@@ -12,7 +12,6 @@ app.use("/auth", authroutes);
 const cookieparser = require("cookie-parser");
 app.use(cookieparser());
 const usercollection = require("./models/user");
-const { findOne } = require("./models/user");
 
 app.post("/userinfopost", verify, async (req, res) => {
   console.log(req.body);
