@@ -19,9 +19,12 @@ const userSchema = new mongoose.Schema({
     min: 6,
     max: 255,
   },
-  cartitems: {
-    required: false,
-  },
+  cartitems: [
+    {
+      type: Object,
+      required: false,
+    },
+  ],
 });
 
 module.exports = mongoose.model("users", userSchema);

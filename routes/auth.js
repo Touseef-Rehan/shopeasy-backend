@@ -28,9 +28,9 @@ auth.post("/login", async (req, res) => {
 
 auth.post("/signup", async (req, res) => {
   const emailexists = await usercollection.findOne({ email: req.body.email });
-
   if (emailexists) {
     res.send("Emailexists");
+    return;
   } else {
     const salt = await bcrypt.genSalt(10);
     const hashedpassword = await bcrypt.hash(req.body.password, salt);
@@ -41,7 +41,9 @@ auth.post("/signup", async (req, res) => {
     });
     try {
       const saveduser = await newuser.save();
-      res.send("Signupsuccessful");
+      const token = jwt.sign({ email: req.body.email }, process.env.jwtsecret);
+      res.setHeader("auth-token", token);
+      res.send({ token: token, user: newuser });
     } catch (err) {
       res.send(err);
     }

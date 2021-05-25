@@ -15,15 +15,15 @@ const usercollection = require("./models/user");
 const { findOne } = require("./models/user");
 
 app.post("/userinfopost", verify, async (req, res) => {
-  console.log(req.body.cartitems);
+  console.log(req.body);
   await usercollection.updateOne(
-    { email: req.body.user.email },
+    { email: req.body.email },
     { $set: { cartitems: req.body.cartitems } },
     (err, re) => {
       console.log(re);
     }
   );
-  let find = await usercollection.findOne({ email: req.body.user.email });
+  let find = await usercollection.findOne({ email: req.body.email });
   res.send(find);
 });
 
