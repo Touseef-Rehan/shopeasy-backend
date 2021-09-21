@@ -13,6 +13,8 @@ auth.post("/login", async (req, res) => {
       req.body.password,
       emailexists.password
     );
+    console.log(req.body.password);
+    console.log(verifypassword);
     if (!verifypassword) {
       res.send("incorrect password");
     } else {
